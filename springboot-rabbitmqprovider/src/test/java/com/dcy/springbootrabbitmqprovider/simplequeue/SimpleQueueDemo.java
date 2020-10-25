@@ -1,5 +1,9 @@
 package com.dcy.springbootrabbitmqprovider.simplequeue;
 
+import com.alibaba.fastjson.JSON;
+import com.dcy.springbootrabbitmqprovider.config.RabbitMQConfig;
+import com.dcy.springbootrabbitmqprovider.myrabbitmqsend.ProviderMessageSender;
+import com.dcy.springbootrabbitmqprovider.pojo.User;
 import com.dcy.springbootrabbitmqprovider.SpringbootRabbitmqproviderApplication;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,6 +11,8 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.UUID;
 
 /**
  * @ClassName SimpleQueueDemo
@@ -87,5 +93,23 @@ public class SimpleQueueDemo {
     public void TopicSend(){
                 rabbitTemplate.convertAndSend("topic_exchange","hello.word","你好啊，小改改。。");
                 rabbitTemplate.convertAndSend("topic_exchange","hello.word.you","你不太好啊，小改改。。");
+    }
+/**
+ * @Author Mr.Dong
+ * @Description //使用RabbitMQ的confirm机制发送消息
+ * @Date 15:13 2020/10/24
+ * @Param []
+ * @return void
+ **/
+@Autowired
+ProviderMessageSender providerMessageSender;
+    @Test
+    public void sendConfirm(){
+            User user=new User();
+            user.setUsername("RabbitMQConfirm机制");
+            user.setPassword(UUID.randomUUID().toString());
+            user.setAge(20);
+            String jsonUser = JSON.toJSONString(user);
+            providerMessageSender.sendMessage("", RabbitMQConfig.USER_QUEUE,jsonUser);
     }
 }
