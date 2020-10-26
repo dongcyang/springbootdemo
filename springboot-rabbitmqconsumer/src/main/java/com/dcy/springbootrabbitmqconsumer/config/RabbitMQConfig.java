@@ -16,6 +16,9 @@ public class RabbitMQConfig {
 
     public static  final String USER_QUEUE="user_queue";
 
+    public static final String KM_QUEUE="km_queue";
+
+
     /**
      * @Author Mr.Dong
      * @Description /声明队列，并开启持久化
@@ -28,5 +31,13 @@ public class RabbitMQConfig {
         //参数一：队列名称
         //参数二：是否开启队列持久化
         return new Queue(USER_QUEUE,true);
+    }
+
+
+    @Bean
+    public Queue KmQueue(){
+        //参数一：队列名称
+        //参数二：是否开启队列持久化
+        return new Queue(KM_QUEUE,true);
     }
 }
