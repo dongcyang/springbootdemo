@@ -3,6 +3,7 @@ package com.dcy.springbootrabbitmqconsumer.search.service;
 import com.dcy.springbootrabbitmqconsumer.search.pojo.KnowledgeEs;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @ClassName KnowledgeService
@@ -33,5 +34,14 @@ public interface KnowledgeService {
      * @return void
      **/
     public void addKmListToEs(List<KnowledgeEs> kmList);
+
+    /**
+     * @Author Mr.Dong
+     * @Description //简单查询ES库
+     * @Date 21:47 2020/10/26
+     * @Param [paramMap]
+     * @return java.util.Map<java.lang.String,java.lang.Object>
+     **/
+    public Map<String,Object> simpleSearch(Map<String,String> paramMap);
 
     }
